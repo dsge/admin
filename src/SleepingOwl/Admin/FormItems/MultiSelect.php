@@ -1,6 +1,7 @@
 <?php namespace SleepingOwl\Admin\FormItems;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Collection;
 
 class MultiSelect extends Select
 {
@@ -10,7 +11,7 @@ class MultiSelect extends Select
 	public function value()
 	{
 		$value = parent::value();
-		if ($value instanceof Collection  && $value->count() > 0)
+		if ($value instanceof EloquentCollection && $value->count() > 0)
 		{
 			$value = $value->lists($value->first()->getKeyName());
 		}
