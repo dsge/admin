@@ -119,8 +119,8 @@ class DisplayDatatablesAsync extends DisplayDatatables implements WithRoutesInte
 	 */
 	protected function applyOffset($query)
 	{
-		$offset = Request::get('start', 0);
-		$limit = Request::get('length', 10);
+		$offset = Request::input('start', 0);
+		$limit = Request::input('length', 10);
 		if ($limit == -1)
 		{
 			return;
@@ -134,7 +134,7 @@ class DisplayDatatablesAsync extends DisplayDatatables implements WithRoutesInte
 	 */
 	protected function applyOrders($query)
 	{
-		$orders = Request::get('order', []);
+		$orders = Request::input('order', []);
 		foreach ($orders as $order)
 		{
 			$columnIndex = $order['column'];
@@ -154,7 +154,7 @@ class DisplayDatatablesAsync extends DisplayDatatables implements WithRoutesInte
 	 */
 	protected function applySearch($query)
 	{
-		$search = Request::get('search.value');
+		$search = Request::input('search.value');
 		if (is_null($search))
 		{
 			return;
@@ -179,7 +179,7 @@ class DisplayDatatablesAsync extends DisplayDatatables implements WithRoutesInte
 
 	protected function applyColumnSearch($query)
 	{
-		$queryColumns = Request::get('columns', []);
+		$queryColumns = Request::input('columns', []);
 		foreach ($queryColumns as $index => $queryColumn)
 		{
 			$search = array_get($queryColumn, 'search.value');
@@ -207,7 +207,7 @@ class DisplayDatatablesAsync extends DisplayDatatables implements WithRoutesInte
 		$columns = $this->allColumns();
 
 		$result = [];
-		$result['draw'] = Request::get('draw', 0);
+		$result['draw'] = Request::input('draw', 0);
 		$result['recordsTotal'] = $totalCount;
 		$result['recordsFiltered'] = $filteredCount;
 		$result['data'] = [];
